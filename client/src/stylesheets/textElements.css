@@ -28,4 +28,11 @@
     line-height:0.875rem;
 }
 
+a{
+    color: var(--primary) !important;
+}
+a:hover{
+    color: var(--primary) !important;
+    text-decoration: underline;
+}
 

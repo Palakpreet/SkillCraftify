@@ -22,3 +22,6 @@
 .fg{
     background-color: var(--primary);
 }
+.pt-2{
+    padding-left:15px;
+}
