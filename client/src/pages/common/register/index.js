@@ -1,10 +1,21 @@
-import {Form} from "antd";
+import {Form, message} from "antd";
 import React from 'react'
 import {Link} from 'react-router-dom';
+import { registerUser } from "../../../apicalls/users";
 
 function Register() {
-  const onFinish=(values)=>{
-    console.log(values);
+  const onFinish=async(values)=>{
+    try{
+      const response=await registerUser(values);
+      if(response.success){
+        message.success(response.message);
+      }
+      else{
+        message.error(response.message);
+      }
+    } catch(error){
+      message.error(error.message);
+    }
   };
   return (
     <div className="flex flex-col item-center h-screen bg">
@@ -25,7 +36,7 @@ function Register() {
                     <input className="w-95 h-40 pt-2" type="password"/>
                 </Form.Item>
                 <div className="flex flex-col gap-2">
-                <button type="submit" className="primary-contained-btn mt-2 w-100">Login</button>
+                <button type="submit" className="primary-contained-btn mt-2 w-100">Register</button>
                 <Link to="/login"><b>Already a member? Login</b></Link>
                 </div>
             </Form>
