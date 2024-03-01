@@ -1,38 +1,41 @@
-.input{
-    padding:10px 20px;
-    border:2px solid #ccc;
+input,
+select {
+  height: 40 px !important;
+  padding: 10px 20px !important;
+  border: 2px solid rgb(131, 130, 130) !important;
+  width: 100%;
+  border-radius: 2px !important;
+}
+.ant-form-item {
+  margin-bottom: 5px !important;
 }
 
-.ant-form-item{
-    margin-bottom:5px !important;
+.primary-contained-btn {
+  background-color: var(--primary);
+  color: black;
+  padding: 10px 20px;
+  border: 2px solid gray;
+  /* box-shadow:0 0 4px black; */
 }
 
-.primary-contained-btn{
-    background-color: var(--primary);
-    color:black;
-    padding:10px 20px;
-    border:2px solid gray;
-    /* box-shadow:0 0 4px black; */
+.primary-outlined-btn {
+  background-color: var(--primary);
+  color: black;
+  border: 2px solid black;
+  padding: 10px 10px;
+  height: 50px;
+  border-radius: 5px;
+
+  /* box-shadow:0 0 4px black; */
 }
 
-.primary-outlined-btn{
-    background-color: var(--primary);
-    color: black;
-    border:2px solid black;
-    padding:10px 10px;
-    height:50px;
-    border-radius:5px;
-    
-    /* box-shadow:0 0 4px black; */
+.bg {
+  background-color: var(--secondary);
 }
 
-.bg{
-    background-color: var(--secondary);
+.fg {
+  background-color: var(--primary);
 }
-
-.fg{
-    background-color: var(--primary);
-}
-.pt-2{
-    padding-left:15px;
+.pt-2 {
+  padding-left: 15px;
 }
