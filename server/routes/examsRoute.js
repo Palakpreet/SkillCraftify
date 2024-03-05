@@ -48,10 +48,40 @@ router.post("/get-all-exams", authMiddleware, async (req, res) => {
 //get exam by id
 router.post("/get-exam-by-id", authMiddleware, async (req, res) => {
   try {
-    const exams = await Exam.findById(req.body.examId);
+    const exam = await Exam.findById(req.body.examId);
     res.send({
       message: "Exam fetched successfully",
       data: exam,
+      success: true,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: error.message,
+      data: error,
+      success: false,
+    });
+  }
+});
+router.post("/edit-exam-by-id", authMiddleware, async (req, res) => {
+  try {
+    await Exam.findByIdAndUpdate(req.body.examId, req.body);
+    res.send({
+      message: "Exam edited successfully",
+      success: true,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: error.message,
+      data: error,
+      success: false,
+    });
+  }
+});
+router.post("/delete-exam-by-id", authMiddleware, async (req, res) => {
+  try {
+    await Exam.findByIdAndDelete(req.body.examId);
+    res.send({
+      message: "Exam deleted successfully",
       success: true,
     });
   } catch (error) {

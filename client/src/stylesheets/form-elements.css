@@ -17,7 +17,10 @@ select {
   border: 2px solid gray;
   /* box-shadow:0 0 4px black; */
 }
-
+button {
+  padding: 10px 25px;
+  border-radius: 2px;
+}
 .primary-outlined-btn {
   background-color: var(--primary);
   color: black;
