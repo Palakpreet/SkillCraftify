@@ -14,12 +14,15 @@ select {
   background-color: var(--primary);
   color: black;
   padding: 10px 20px;
-  border: 2px solid gray;
+  border: 2px solid black;
+  border-radius: 5px;
   /* box-shadow:0 0 4px black; */
 }
 button {
   padding: 10px 25px;
   border-radius: 2px;
+  cursor:pointer;
+  height:40px !important;
 }
 .primary-outlined-btn {
   background-color: var(--primary);

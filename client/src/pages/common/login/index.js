@@ -35,14 +35,15 @@ function Login() {
             <div className="divider"></div>
             <Form layout="vertical" onFinish={onFinish}>
               <Form.Item name="email" label="Email">
-                <input className="w-95 h-40 pt-2" type="text" />
+                <input className="pt-2" style={{width:"90%",height:"35px"}}type="text" />
               </Form.Item>
               <Form.Item name="password" label="Password">
-                <input className="w-95 h-40 pt-2" type="password" />
+                <input className="pt-2" style={{width:"90%",height:"35px"}} type="password" />
               </Form.Item>
               <div className="flex flex-col gap-2">
                 <button
                   type="submit"
+    
                   className="primary-contained-btn mt-2 w-100"
                 >
                   Login

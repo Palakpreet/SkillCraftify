@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Exam = require("../models/examModel");
+const Question = require("../models/questionModel");
 const authMiddleware = require("../middlewares/authMiddleware");
 
 //add exam
@@ -48,7 +49,7 @@ router.post("/get-all-exams", authMiddleware, async (req, res) => {
 //get exam by id
 router.post("/get-exam-by-id", authMiddleware, async (req, res) => {
   try {
-    const exam = await Exam.findById(req.body.examId);
+    const exam = await Exam.findById(req.body.examId).populate("questions");
     res.send({
       message: "Exam fetched successfully",
       data: exam,
@@ -62,6 +63,7 @@ router.post("/get-exam-by-id", authMiddleware, async (req, res) => {
     });
   }
 });
+//edit-exam-by-id
 router.post("/edit-exam-by-id", authMiddleware, async (req, res) => {
   try {
     await Exam.findByIdAndUpdate(req.body.examId, req.body);
@@ -77,11 +79,79 @@ router.post("/edit-exam-by-id", authMiddleware, async (req, res) => {
     });
   }
 });
+//delete-exam-by-id
 router.post("/delete-exam-by-id", authMiddleware, async (req, res) => {
   try {
     await Exam.findByIdAndDelete(req.body.examId);
     res.send({
       message: "Exam deleted successfully",
+      success: true,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: error.message,
+      data: error,
+      success: false,
+    });
+  }
+});
+
+//add-question-to-exam
+router.post("/add-question-to-exam", authMiddleware, async (req, res) => {
+  try {
+    //add question to questionCollection
+    const newQuestion = new Question(req.body);
+    const question = await newQuestion.save();
+
+    //add question to exam
+    const exam = await Exam.findById(req.body.exam);
+    exam.questions.push(question.id);
+    await exam.save();
+    res.send({
+      message: "Question added successfully",
+      success: true,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: error.message,
+      data: error,
+      success: false,
+    });
+  }
+});
+
+//edit question in exam
+router.post("/edit-question-in-exam", authMiddleware, async (req, res) => {
+  try {
+    //edit question to questionCollection
+    await Question.findByIdAndUpdate(req.body.questionId, req.body);
+    res.send({
+      message: "Question updated successfully",
+      success: true,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: error.message,
+      data: error,
+      success: false,
+    });
+  }
+});
+
+//delete question in exam
+router.post("/delete-question-in-exam", authMiddleware, async (req, res) => {
+  try {
+    //remove question from questionCollection
+    await Question.findByIdAndDelete(req.body.questionId);
+
+    //delete question from exam
+    const exam = await Exam.findById(req.body.examId);
+    exam.questions = exam.questions.filter(
+      (question) => question._id != req.body.questionId
+    );
+    await exam.save();
+    res.send({
+      message: "Question deleted successfully",
       success: true,
     });
   } catch (error) {
