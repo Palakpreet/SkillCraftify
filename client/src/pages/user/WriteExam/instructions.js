@@ -25,7 +25,14 @@ function Instructions(props) {
           <span className="font-bold">{props.examData.passingMarks}</span>
         </li>
       </ul>
-      <button className="primary-outlined-btn">Start Now</button>
+      <button
+        className="primary-outlined-btn"
+        onClick={() => {
+          props.setView("questions");
+        }}
+      >
+        Start Now
+      </button>
     </div>
   );
 }

@@ -24,6 +24,19 @@
   border-radius: 50%;
   animation: loader 1s linear infinite;
 }
+.selected-option{
+  box-shadow:0 0 1px rgb(13, 12, 12);
+  padding:10px;
+  border-radius:5px;
+  border:2px solid rgb(60, 59, 59);
+  background-color: var(--primary);
+}
+
+.option{
+  box-shadow:0 0 1.5px rgb(9, 8, 8);
+  padding:10px;
+  border-radius:5px;
+}
 @keyframes loader {
   0% {
     transform: rotate(0deg);

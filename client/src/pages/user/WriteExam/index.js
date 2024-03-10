@@ -1,5 +1,5 @@
-import { message } from "antd";
-import React, { useEffect } from "react";
+import { Col, message } from "antd";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ShowLoading, HideLoading } from "../../../redux/loaderSlice";
@@ -7,10 +7,14 @@ import { getExamById } from "../../../apicalls/exams";
 import Instructions from "./instructions";
 
 function WriteExam() {
-  const [examData, setExamData] = React.useState(null);
+  const [examData, setExamData] = useState(null);
+  const [questions = [], setQuestions] = useState([]);
+  const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(0);
+  const [selectedOptions = {}, setSelectedOptions] = useState({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
+  const [view, setView] = useState("instructions");
   const getExamData = async () => {
     try {
       dispatch(ShowLoading());
@@ -19,6 +23,7 @@ function WriteExam() {
       });
       dispatch(HideLoading());
       if (response.success) {
+        setQuestions(response.data.questions);
         setExamData(response.data);
       } else {
         message.error(response.message);
@@ -41,7 +46,66 @@ function WriteExam() {
         <div className="divider"></div>
         <h1 className="text-center">{examData.name}</h1>
         <div className="divider"></div>
-        <Instructions examData={examData} />
+        {view == "instructions" && (
+          <Instructions examData={examData} view={view} setView={setView} />
+        )}
+        {view == "questions" && (
+          <div className="flex flex-col gap-2">
+            <h1 className="text-2xl">
+              {selectedQuestionIndex + 1} :{" "}
+              {questions[selectedQuestionIndex]?.name}
+            </h1>
+            <div className="flex flex-col gap-2">
+              {Object.keys(questions[selectedQuestionIndex].options).map(
+                (option, index) => {
+                  return (
+                    <div
+                      className={`flex gap-2 flex-col ${
+                        selectedOptions[selectedQuestionIndex] === option
+                          ? "selected-option"
+                          : "option"
+                      }`}
+                      key={index}
+                      onClick={() =>
+                        setSelectedOptions({
+                          ...selectedOptions,
+                          [selectedQuestionIndex]: option,
+                        })
+                      }
+                    >
+                      <h1 className="text-xl">
+                        {option} :{" "}
+                        {questions[selectedQuestionIndex]?.options[option]}
+                      </h1>
+                    </div>
+                  );
+                }
+              )}
+            </div>
+            <div className="flex justify-between">
+              {selectedQuestionIndex > 0 && (
+                <button
+                  className="primary-outlined-btn"
+                  onClick={() => {
+                    setSelectedQuestionIndex(selectedQuestionIndex - 1);
+                  }}
+                >
+                  Previous
+                </button>
+              )}
+              {selectedQuestionIndex < questions.length - 1 && (
+                <button
+                  className="primary-outlined-btn"
+                  onClick={() => {
+                    setSelectedQuestionIndex(selectedQuestionIndex + 1);
+                  }}
+                >
+                  Next
+                </button>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     )
   );

@@ -34,7 +34,7 @@ function Home() {
   }, []);
 
   return (
-    <div>
+    user && (<div>
       <PageTitle title={`Hi ${user?.name}, Welcome to SkillCraftify`} />
       <div className="divider"></div>
       <Row gutter={[16, 16]}>
@@ -43,7 +43,7 @@ function Home() {
             <Col span={6}>
               <div className="card flex flex-col gap-1 p-2 mt-2">
                 <h1 className="text-2xl">
-                  <b>{exam.name}</b>
+                  <b>{exam?.name}</b>
                 </h1>
                 <h1 className="text-md">Category : {exam.category}</h1>
                 <h1 className="text-md">Total Marks : {exam.totalMarks}</h1>
@@ -60,7 +60,7 @@ function Home() {
           );
         })}
       </Row>
-    </div>
+    </div>)
   );
 }
 
