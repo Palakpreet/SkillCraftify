@@ -28,6 +28,10 @@
     line-height:0.875rem;
 }
 
+.text-center{
+    text-align:center
+}
+
 a{
     color: var(--primary) !important;
 }
