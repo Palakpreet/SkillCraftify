@@ -16,7 +16,7 @@ function ProtectedRoute({ children }) {
   const userMenu = [
     {
       title: "Home",
-      paths: ["/"],
+      paths: ["/", "/user/write-exam"],
       icon: <i className="ri-home-line"></i>,
       onClick: () => navigate("/"),
     },
@@ -46,7 +46,7 @@ function ProtectedRoute({ children }) {
   const adminMenu = [
     {
       title: "Home",
-      paths: ["/"],
+      paths: ["/", "/user/write-exam"],
       icon: <i className="ri-home-line"></i>,
       onClick: () => navigate("/"),
     },
@@ -102,10 +102,9 @@ function ProtectedRoute({ children }) {
   };
 
   useEffect(() => {
-    if(localStorage.getItem("token")){
-    getUserData();
-    }
-    else{
+    if (localStorage.getItem("token")) {
+      getUserData();
+    } else {
       navigate("/login");
     }
   }, []);
@@ -120,7 +119,12 @@ function ProtectedRoute({ children }) {
         paths.includes("/admin/exams")
       )
         return true;
-      return false;
+
+      if (
+        activeRoute.includes("/user/write-exam") &&
+        paths.includes("/user/write-exam")
+      )
+        return false;
     }
   };
 

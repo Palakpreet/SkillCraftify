@@ -45,3 +45,28 @@
     transform: rotate(360deg);
   }
 }
+
+.result{
+  background-color: var(--primary);
+  width: 250px;
+  align-items: center;
+  padding:30px;
+  border-radius: 8px;
+
+}
+
+.timer{
+  background-color: brown;
+  color:white !important;
+  padding:10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  width: 80px;
+
+}
+
+.lottie-animation{
+  height:400px;
+}

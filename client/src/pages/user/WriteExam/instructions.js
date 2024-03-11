@@ -28,6 +28,7 @@ function Instructions(props) {
       <button
         className="primary-outlined-btn"
         onClick={() => {
+          props.startTimer();
           props.setView("questions");
         }}
       >
